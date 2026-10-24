@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="card top">
+  <div>
+    <h1>Мой сайт</h1>
+    <div class="muted">Загрузка и управление файлами</div>
+  </div>
+
+  <div class="actions">
+    {% if user.is_authenticated %}
+      <a class="btn2" href="{% url 'upload' %}">Загрузить файл</a>
+      <a class="btn" href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+      <a class="btn2" href="{% url 'login' %}">Войти</a>
+      <a class="btn" href="{% url 'register' %}">Регистрация</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="card">
+  <h2>Файлы</h2>
+
+  {% if files %}
+    {% for file in files %}
+      <div class="item">
+        <div>
+          <strong>{{ file.title }}</strong><br>
+          <span class="muted">{{ file.created_at }} • {{ file.uploaded_by }}</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn2" href="{{ file.file.url }}" target="_blank">Просмотреть</a>
+          <a class="btn2" href="{% url 'download_media' file.id %}">Скачать</a>
+          {% if user.is_staff %}
+            <a class="danger" href="{% url 'delete_media' file.id %}">Удалить</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="muted">Пока файлов нет.</p>
+  {% endif %}
+</div>
+{% endblock %}

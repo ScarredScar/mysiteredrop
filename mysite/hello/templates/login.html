@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Вход</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f7fb; margin: 0; }
+    .container { max-width: 420px; margin: 80px auto; padding: 20px; }
+    .card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    input, button { width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 10px; border: 1px solid #d1d5db; box-sizing: border-box; }
+    button { background: #2563eb; color: white; border: none; cursor: pointer; }
+    a { text-decoration: none; color: #2563eb; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Вход</h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Войти</button>
+      </form>
+      <p><a href="{% url 'register' %}">Нет аккаунта? Регистрация</a></p>
+      <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+    </div>
+  </div>
+</body>
+</html>
